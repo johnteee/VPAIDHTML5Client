@@ -130,7 +130,7 @@ IVPAIDAdUnit.prototype.skipAd = function(callback) {};
  *
  * @param {nodeStyleCallback} callback
  */
-IVPAIDAdUnit.prototype.resizeAd = function(callback) {};
+IVPAIDAdUnit.prototype.resizeAd = function(width, height, viewMode, callback) {};
 
 /**
  * pauseAd
@@ -323,6 +323,7 @@ function VPAIDAdUnit(VPAIDCreative, el, video, iframe) {
         this._videoEl = video;
         this._iframe = iframe;
         this._subscribers = new Subscriber();
+        utils.setFullSizeStyle(el);
         $addEventsSubscribers.call(this);
     }
 }
@@ -481,10 +482,22 @@ function $addEventsSubscribers() {
     // map the click event to be an object instead of depending of the order of the arguments
     // and to be consistent with the flash
     this._creative.subscribe($clickThruHook.bind(this), AD_CLICK);
+
+    // because we are adding the element inside the iframe
+    // the user is not able to click in the video
+    if (this._videoEl) {
+        var documentElement = this._iframe.contentDocument.documentElement;
+        var videoEl = this._videoEl;
+        documentElement.addEventListener('click', function(e) {
+            if (e.target === documentElement) {
+                videoEl.click();
+            }
+        });
+    }
 }
 
 function $clickThruHook(url, id, playerHandles) {
-    this._subscribers.trigger(AD_CLICK, {url: url, id: id, playerHandles: playerHandles});
+    this._subscribers.triggerSync(AD_CLICK, {url: url, id: id, playerHandles: playerHandles});
 }
 
 function $trigger(event) {
@@ -507,11 +520,20 @@ module.exports = VPAIDAdUnit;
 },{"./IVPAIDAdUnit":1,"./subscriber":4,"./utils":5}],3:[function(require,module,exports){
 'use strict';
 
-
 var utils = require('./utils');
 var unique = utils.unique('vpaidIframe');
 var VPAIDAdUnit = require('./VPAIDAdUnit');
-var defaultTemplate = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n</head>\n<body>\n    <script type=\"text/javascript\" src=\"{{iframeURL_JS}}\"></script>\n    <script>\n        parent.postMessage('{\"event\": \"ready\", \"id\": \"{{iframeID}}\"}', window.location.origin);\n    </script>\n    <div class=\"ad-element\">\n    </div>\n</body>\n</html>\n";
+
+var defaultTemplate = '<!DOCTYPE html>' +
+    '<html lang="en">' +
+    '<head><meta charset="UTF-8"></head>' +
+    '<body style="margin:0;padding:0"><div class="ad-element"></div>' +
+    '<script type="text/javascript" src="{{iframeURL_JS}}"></script>' +
+    '<script type="text/javascript">' +
+    'window.parent.postMessage(\'{"event": "ready", "id": "{{iframeID}}"}\', \'{{origin}}\');' +
+    '</script>' +
+    '</body>' +
+    '</html>';
 
 var AD_STOPPED = 'AdStopped';
 
@@ -545,7 +567,6 @@ function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
         template: templateConfig.template || defaultTemplate,
         extraOptions: templateConfig.extraOptions || {}
     };
-
 }
 
 /**
@@ -576,17 +597,22 @@ VPAIDHTML5Client.prototype.isDestroyed = function isDestroyed() {
  * @param {nodeStyleCallback} callback
  */
 VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
+    if(this._onLoad){ return }
+
     $throwIfDestroyed.call(this);
     $unloadPreviousAdUnit.call(this);
+    var that = this;
 
     var frame = utils.createIframeWithContent(
         this._frameContainer,
         this._templateConfig.template,
         utils.extend({
             iframeURL_JS: adURL,
-            iframeID: this.getID()
+            iframeID: this.getID(),
+            origin: getOrigin()
         }, this._templateConfig.extraOptions)
     );
+
     this._frame = frame;
 
     this._onLoad = utils.callbackTimeout(
@@ -600,31 +626,31 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
     function onLoad (e) {
         /*jshint validthis: false */
         //don't clear timeout
-        if (e.origin !== window.location.origin) return;
+        if (e.origin !== getOrigin()) return;
         var result = JSON.parse(e.data);
 
         //don't clear timeout
-        if (result.id !== this.getID()) return;
+        if (result.id !== that.getID()) return;
 
         var adUnit, error, createAd;
-        if (!this._frame.contentWindow) {
+        if (!that._frame.contentWindow) {
 
             error = 'the iframe is not anymore in the DOM tree';
 
         } else {
-            createAd = this._frame.contentWindow.getVPAIDAd;
+            createAd = that._frame.contentWindow.getVPAIDAd;
             error = utils.validate(typeof createAd === 'function', 'the ad didn\'t return a function to create an ad');
         }
 
         if (!error) {
-            var adEl = this._frame.contentWindow.document.querySelector('.ad-element');
-            adUnit = new VPAIDAdUnit(createAd(), adEl, this._videoEl, this._frame);
-            adUnit.subscribe(AD_STOPPED, $adDestroyed.bind(this));
+            var adEl = that._frame.contentWindow.document.querySelector('.ad-element');
+            adUnit = new VPAIDAdUnit(createAd(), adEl, that._videoEl, that._frame);
+            adUnit.subscribe(AD_STOPPED, $adDestroyed.bind(that));
             error = utils.validate(adUnit.isValidVPAIDAd(), 'the add is not fully complaint with VPAID specification');
         }
 
-        this._adUnit = adUnit;
-        $destroyLoadListener.call(this);
+        that._adUnit = adUnit;
+        $destroyLoadListener.call(that);
         callback(error, error ? null : adUnit);
 
         //clear timeout
@@ -661,8 +687,8 @@ VPAIDHTML5Client.prototype.getID = function () {
  */
 function $removeEl(key) {
     var el = this[key];
-    if (el) {
-        el.remove();
+    if (el && el.parentNode) {
+        el.parentNode.removeChild(el);
         delete this[key];
     }
 }
@@ -689,7 +715,6 @@ function $removeAdElements() {
 function $destroyLoadListener() {
     if (this._onLoad) {
         window.removeEventListener('message', this._onLoad);
-        utils.clearCallbackTimeout(this._onLoad);
         delete this._onLoad;
     }
 }
@@ -712,9 +737,19 @@ function $throwIfDestroyed() {
     }
 }
 
+function getOrigin() {
+    if( window.location.origin ) {
+        return window.location.origin;
+    }
+    else {
+        return window.location.protocol + "//" +
+            window.location.hostname +
+            (window.location.port ? ':' + window.location.port: '');
+    }
+}
+
 module.exports = VPAIDHTML5Client;
 window.VPAIDHTML5Client = VPAIDHTML5Client;
-
 
 },{"./VPAIDAdUnit":2,"./utils":5}],4:[function(require,module,exports){
 'use strict';
@@ -724,12 +759,14 @@ function Subscriber() {
 }
 
 Subscriber.prototype.subscribe = function subscribe(handler, eventName, context) {
-    this.get(eventName).push({handler: handler, context: context});
+    if (!this.isHandlerAttached(handler, eventName)) {
+        this.get(eventName).push({handler: handler, context: context, eventName: eventName});
+    }
 };
 
 Subscriber.prototype.unsubscribe = function unsubscribe(handler, eventName) {
     this._subscribers[eventName] = this.get(eventName).filter(function (subscriber) {
-        return handler === subscriber.handler;
+        return handler !== subscriber.handler;
     });
 };
 
@@ -738,10 +775,25 @@ Subscriber.prototype.unsubscribeAll = function unsubscribeAll() {
 };
 
 Subscriber.prototype.trigger = function(eventName, data) {
-    this.get(eventName).forEach(function (subscriber) {
+    var that = this;
+    var subscribers = this.get(eventName)
+        .concat(this.get('*'));
+
+    subscribers.forEach(function (subscriber) {
         setTimeout(function () {
-            subscriber.handler.call(subscriber.context, data);
+            if (that.isHandlerAttached(subscriber.handler, subscriber.eventName)) {
+                subscriber.handler.call(subscriber.context, data);
+            }
         }, 0);
+    });
+};
+
+Subscriber.prototype.triggerSync = function(eventName, data) {
+    var subscribers = this.get(eventName)
+        .concat(this.get('*'));
+
+    subscribers.forEach(function (subscriber) {
+        subscriber.handler.call(subscriber.context, data);
     });
 };
 
@@ -750,6 +802,12 @@ Subscriber.prototype.get = function get(eventName) {
         this._subscribers[eventName] = [];
     }
     return this._subscribers[eventName];
+};
+
+Subscriber.prototype.isHandlerAttached = function isHandlerAttached(handler, eventName) {
+    return this.get(eventName).some(function(subscriber) {
+        return handler === subscriber.handler;
+    })
 };
 
 module.exports = Subscriber;
@@ -773,20 +831,6 @@ function validate(isValid, message) {
     return isValid ? null : new Error(message);
 }
 
-var timeouts = {};
-/**
- * clearCallbackTimeout
- *
- * @param {function} func handler to remove
- */
-function clearCallbackTimeout(func) {
-    var timeout = timeouts[func];
-    if (timeout) {
-        clearTimeout(timeout);
-        delete timeouts[func];
-    }
-}
-
 /**
  * callbackTimeout if the onSuccess is not called and returns true in the timelimit then onTimeout will be called
  *
@@ -799,7 +843,6 @@ function callbackTimeout(timer, onSuccess, onTimeout) {
 
     timeout = setTimeout(function () {
         onSuccess = noop;
-        delete timeout[callback];
         onTimeout();
     }, timer);
 
@@ -807,11 +850,9 @@ function callbackTimeout(timer, onSuccess, onTimeout) {
         // TODO avoid leaking arguments
         // https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#32-leaking-arguments
         if (onSuccess.apply(this, arguments)) {
-            clearCallbackTimeout(callback);
+            clearTimeout(timeout);
         }
     };
-
-    timeouts[callback] = timeout;
 
     return callback;
 }
@@ -839,7 +880,7 @@ function createElementInEl(parent, tagName, id) {
  * @param {object} data
  */
 function createIframeWithContent(parent, template, data) {
-    var iframe = createIframe(parent);
+    var iframe = createIframe(parent, null, data.zIndex);
     if (!setIframeContent(iframe, simpleTemplate(template, data))) return;
     return iframe;
 }
@@ -850,17 +891,37 @@ function createIframeWithContent(parent, template, data) {
  * @param {HTMLElement} parent
  * @param {string} url
  */
-function createIframe(parent, url) {
+function createIframe(parent, url, zIndex) {
     var nEl = document.createElement('iframe');
     nEl.src = url || 'about:blank';
+    nEl.marginWidth = '0';
+    nEl.marginHeight = '0';
+    nEl.frameBorder = '0';
     nEl.width = '100%';
     nEl.height = '100%';
-    nEl.style.position = 'absolute';
-    nEl.style.left = '0';
-    nEl.style.top = '0';
+    setFullSizeStyle(nEl);
+
+    if(zIndex){
+        nEl.style.zIndex = zIndex;
+    }
+
+    nEl.setAttribute('SCROLLING','NO');
     parent.innerHTML = '';
     parent.appendChild(nEl);
     return nEl;
+}
+
+function setFullSizeStyle(element) {
+    if(element) {
+        element.style.position = 'absolute';
+        element.style.left = '0';
+        element.style.top = '0';
+        element.style.margin = '0px';
+        element.style.padding = '0px';
+        element.style.border = 'none';
+        element.style.width = '100%';
+        element.style.height = '100%';
+    }
 }
 
 /**
@@ -922,11 +983,11 @@ function unique(prefix) {
 module.exports = {
     noop: noop,
     validate: validate,
-    clearCallbackTimeout: clearCallbackTimeout,
     callbackTimeout: callbackTimeout,
     createElementInEl: createElementInEl,
     createIframeWithContent: createIframeWithContent,
     createIframe: createIframe,
+    setFullSizeStyle: setFullSizeStyle,
     simpleTemplate: simpleTemplate,
     setIframeContent: setIframeContent,
     extend: extend,
@@ -935,6 +996,5 @@ module.exports = {
 
 
 },{}]},{},[3])
-
 
 //# sourceMappingURL=VPAIDHTML5Client.js.map
