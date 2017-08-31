@@ -25,7 +25,7 @@ var testPath = 'test/**/**.js';
 var binPath = './bin';
 
 var jsBuilds = [
-    'VPAIDHTML5Client.js'
+    'VPAIDHTML5Client.js', 'VPAIDAdChoices.js'
 ].map(function (entry, index) {
 
     var build = watchify(
@@ -149,4 +149,3 @@ gulp.task('deploy:demo', ['test:deploy', 'browserify'], function() {
 });
 
 gulp.task('default', ['test:dev', 'browserify', 'watch:test']);
-

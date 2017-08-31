@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>VPAIDHTML5Client</title>
     <link rel="stylesheet" href="demo.css">
+
+	<script type="text/javascript" src="VPAIDAdChoices.js"></script>
+
     <script type="text/javascript" src="VPAIDHTML5Client.js"></script>
 </head>
 <body>
@@ -18,6 +21,10 @@
         var el = document.getElementById('myContent');
         var video = document.getElementById('myVideo');
         var skipAd = document.getElementById('skipAd');
+
+
+//var vpaidAdC = new VPAIDAdChoices();
+
         var vpaid = new VPAIDHTML5Client(el, video, {});
         var urls = [
                 {
@@ -49,7 +56,8 @@
         ];
 
         function getRandomAd() {
-            return urls[Math.round( (urls.length - 1) * Math.random())];
+            //return urls[Math.round( (urls.length - 1) * Math.random())];
+			return urls[0];
         }
 
         var currentAd = getRandomAd();
@@ -71,7 +79,7 @@
                 'AdLinearChange',
                 'AdDurationChange',
                 'AdExpandedChange',
-                'AdRemainingTimeChange', // [Deprecated in 2.0] but will be still fired for backwards compatibility
+                //'AdRemainingTimeChange', // [Deprecated in 2.0] but will be still fired for backwards compatibility
                 'AdVolumeChange',
                 'AdImpression',
                 'AdVideoStart',
@@ -132,6 +140,12 @@
                 });
             }
         }
+
+
+
     </script>
+
+
+
 </body>
 </html>

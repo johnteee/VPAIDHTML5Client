@@ -5,7 +5,8 @@
   "main": "js/VPAIDHTML5Client.js",
   "scripts": {
     "start": "gulp serve",
-    "test": "gulp test:ci"
+    "test": "gulp test:ci",
+	"deploy": "gulp deploy:demo"
   },
   "repository": {
     "type": "git",
