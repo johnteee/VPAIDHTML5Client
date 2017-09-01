@@ -6,6 +6,12 @@ VPAIDHTML5Client
 [![Build Status](https://travis-ci.org/MailOnline/VPAIDHTML5Client.svg?branch=master)](https://travis-ci.org/MailOnline/VPAIDHTML5Client)
 [![devDependency Status](https://david-dm.org/Mailonline/VPAIDHTML5Client/dev-status.svg)](https://david-dm.org/Mailonline/VPAIDHTML5Client#info=devDependencies)
 
+Note on fork
+-----
+I forked this code to start with a VPAID player and added code to add the AdChoices icon.
+-- Mike Connor
+
+
 About
 -----
 JS iframe wrapper for [VPAID](http://www.iab.net/vpaid).
@@ -80,4 +86,3 @@ License
 licensed under the MIT License, Version 2.0. [View the license file](LICENSE.md)
 
 Copyright &copy; 2015 MailOnline
-
