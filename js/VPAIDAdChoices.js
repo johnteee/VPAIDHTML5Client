@@ -1,34 +1,25 @@
 var VPAIDAdChoices = function() {
-  var VPAIDCreative;
-  var adIFrame = document.getElementsByTagName("iframe")[0];
-
-  // var _iframes = document.getElementsByTagName("iframe");
-
+  var VPAIDCreative, fn;
   var _iframes = Array.from(document.getElementsByTagName("iframe"));
-  //console.log(_iframes);
   _iframes.map((adIFrame) => {
-    var fn = adIFrame.contentWindow['getVPAIDAd'];
+	try {
+		fn = adIFrame.contentWindow['getVPAIDAd'];
+	} catch (e) {
+		console.log(e.message);
+		return;
+	}
 
     if (fn && typeof fn == 'function') {
       VPAIDCreative = fn();
       var _contentWindow = adIFrame.contentWindow;
       var iconW = 70;
 
-      var mydiv = _contentWindow
-        .document
-        .createElement("div");
+      var mydiv = _contentWindow.document.createElement("div");
       var xpos = VPAIDCreative.getAdWidth() - iconW - 6;
 
-      _contentWindow
-        .document
-        .body
-        .appendChild(mydiv);
-      var myIMG = _contentWindow
-        .document
-        .createElement("img");
-      var atag = _contentWindow
-        .document
-        .createElement("a");
+      _contentWindow.document.body.appendChild(mydiv);
+      var myIMG = _contentWindow.document.createElement("img");
+      var atag = _contentWindow.document.createElement("a");
 
       atag.setAttribute("href", "http://info.evidon.com/more_info/18126");
       atag.setAttribute("target", "_blank");
