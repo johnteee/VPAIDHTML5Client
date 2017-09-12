@@ -11,24 +11,13 @@ var VPAIDAdChoices = function() {
 
     if (fn && typeof fn == 'function') {
       VPAIDCreative = fn();
-      var _contentWindow = adIFrame.contentWindow;
-      var iconW = 70;
-
-      var mydiv = _contentWindow.document.createElement("div");
-      var xpos = VPAIDCreative.getAdWidth() - iconW - 6;
-
-      _contentWindow.document.body.appendChild(mydiv);
-      var myIMG = _contentWindow.document.createElement("img");
-      var atag = _contentWindow.document.createElement("a");
-
-      atag.setAttribute("href", "http://info.evidon.com/more_info/18126");
-      atag.setAttribute("target", "_blank");
-
-      myIMG.setAttribute("src", "http://c.betrad.com/geo/c_70.png");
-      mydiv.appendChild(atag);
-      atag.appendChild(myIMG);
-      mydiv.setAttribute("style", `position: absolute; left: ${xpos}px; z-index:10003; margin-top:2px`);
-
+		var _contentWindow = adIFrame.contentWindow;
+    	var durlyScript = document.createElement('SCRIPT');
+		durlyScript.setAttribute('type', 'text/javascript');
+		durlyScript.setAttribute('data-name', 'durly');
+		durlyScript.setAttribute('src', "./notice-js/surly/durly.js?;coid=242;nid=64545;ad_w=300;ad_h=250;");
+			 //place it in ad iframe
+		_contentWindow.document.body.appendChild(durlyScript);
     } else {
       console.log('NON VPAID IFRAME');
     }

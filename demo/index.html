@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>VPAIDHTML5Client</title>
     <link rel="stylesheet" href="demo.css">
-
-	<script type="text/javascript" src="VPAIDAdChoices.js"></script>
+<script type="text/javascript" src="VPAIDAdChoices.js"></script>
 
     <script type="text/javascript" src="VPAIDHTML5Client.js"></script>
 </head>
@@ -13,10 +12,10 @@
 	<iframe src="//rocketnumber9.org/client/ev/demo/iframe.html" title="iframe example 1" width="400" height="300">
 
 	</iframe>
-    <div style="position: relative; width:480px; height:360px;">
+    <div style="position: relative; width:300px; height:250px;">
         <button id="skipAd">Skip ad</button>
-        <div id="myContent" style="position: absolute; top: 0; left: 0; z-index: 1; width: 480px; height: 360px;"></div>
-        <video width="480" height="360" id="myVideo" controls>
+        <div id="myContent" style="position: absolute; top: 0; left: 0; z-index: 1; width: 300px; height: 250px;"></div>
+        <video width="300" height="250" id="myVideo" controls>
             <source src="http://www.w3schools.com/html/movie.mp4" type="video/mp4">
         </video>
     </div>
@@ -132,7 +131,7 @@
             function onHandShake(error, result) {
                 console.log('-------------------------------> onHandShake');
                 console.log('version:', result);
-                adUnit.initAd(480, 360, 'normal', -1, {AdParameters: currentAd.adParameters}, {}, function(err) {
+                adUnit.initAd(300, 250, 'normal', -1, {AdParameters: currentAd.adParameters}, {}, function(err) {
                     console.log('error?', err);
                 });
             }
@@ -148,7 +147,6 @@
 
 
     </script>
-
 
 
 </body>
