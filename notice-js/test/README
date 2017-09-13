@@ -1,0 +1,21 @@
+
+Some test pages. All of the below link to the tag in this project. In order to use these tests
+you should link the entire 'notice-js' project folder into a local webserver and access it like so:
+
+    http://localhost/~chetan/noticejs/test/stubs/index-framed.html
+    
+You must use a webserver, otherwise the AJAX requests to fetch the JSON file will fail due to 
+browser security issues. 
+
+Also, for testing purposes, we only use the following IDs in the tag:
+
+    company id (coid):  0
+    notice id (nid):    79, 10001, 13001-13007, 13111
+    
+
+Contents:
+
+stubs/          Contains very simple framed (iframe) and unframed creative samples of various
+                dimensions with a tag.
+                
+in_the_wild/    These are captures of real pages in the wild where our tag was displayed.

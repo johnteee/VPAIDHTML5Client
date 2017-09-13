@@ -1,0 +1,200 @@
+/* -------------------------------------
+   -------tabbed aisle styles-----------
+   -------------------------------------  */
+
+	p { color: #333; font-size: 100%; }
+
+	a { color: #2255aa; text-decoration: none; }
+
+	.topBulk,
+	.midBulk,
+	.lowerBulk {
+		display: none;
+	}
+
+
+	#billboard {
+		width: 980px;
+		position: relative;
+	}
+
+
+	#rb_content {
+	/* background: transparent url(http://www.cnet.com/html/brandShowcase/fedex/fedExBg3.jpg) no-repeat scroll 260px 330px; */
+	background: transparent none;
+	width: 980px;
+	}
+
+
+/*--- contentMain---*/
+	#contentMain {
+		width: 980px;
+		clear: both;
+		position: relative;
+		margin: 0 auto;
+		padding: 0;
+		float: none;
+
+	}
+
+	/* navigation tabs */
+	ul#tabs {
+		width: 600px;
+		list-style-type: none;
+		display: block;
+		border-bottom: 2px solid #ccc;
+		margin-bottom: 15px;
+		}
+
+	ul#tabs li {
+		float: left;
+		_background:transparent;
+	}
+
+	ul#tabs li a {
+		background: #F6F6F6 url(http://i.i.com.com/cnwk.1d/i/tron/vader/sitenav.png) no-repeat scroll 0 bottom;
+		_background:#dedede;
+		_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=scale,src="http://i.i.com.com/cnwk.1d/i/tron/vader/sitenav.png");
+		overflow:hidden;
+		border: 1px solid #dedede;
+		padding: 3px 16px 6px;
+		font-size: 100%;
+		font-weight: bold;
+		text-decoration: none;
+		margin-right: 1px;
+		float: left;
+	}
+
+	ul#tabs li a span {
+
+	}
+
+	ul#tabs li a:hover, ul#tabs li a:active, li.activeTab {
+		background:url(http://i.i.com.com/cnwk.1d/i/tron/vader/sitenav.png) no-repeat 0 bottom;
+		_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=scale,src="http://i.i.com.com/cnwk.1d/i/tron/vader/sitenav.png");
+		color: #f0f0f0;
+	}
+
+	.siteId7 ul#tabs li a:hover, .siteId7 ul#tabs li a:active, .siteId7 ul#tabs li.activeTab a{
+		background-color:#4988C5;
+		_background:#4988C5;
+		color:#f0f0f0;
+	}
+
+	.siteId4 ul#tabs li a:hover, .siteId4 ul#tabs li a:active, .siteId4 ul#tabs li.activeTab a {
+		background-color:#61993E;
+		_background:#61993E;
+		color:#f0f0f0;
+	}
+
+	.siteId4 ul#tabs li a{
+		color:#484848;
+	}
+
+	ul#tabs li a.last {
+		margin: 0;
+	}
+
+
+
+/*--- left side - contentBody---*/
+	#contentBody {
+		width: 650px;
+		position: relative;
+		float: left;
+		padding: 10px 0 0 10px;
+	}
+
+	#contentBody h1 {
+		width: 650px;
+		clear: both;
+		border: 0;
+		margin: 25px auto 10px;
+		font: bold 24px helvetica, arial, sans-serif;
+	}
+
+
+	.innerWrap {
+		position: relative;
+		margin: 0 auto;
+	}
+
+	/* product listing */
+	ul#prodList {
+		list-style-type: none;
+		display: inline-block;
+	}
+
+	ul#prodList li {
+		background:transparent url(http://i.i.com.com/cnwk.1d/i/tiburon/hh/dot3.gif) repeat-x left bottom;
+		display: block;
+		position: relative;
+		float: left;
+		_overflow: hidden;
+		margin: 10px 40px 10px 0;
+		height: 80px;
+		overflow: hidden;
+
+	}
+
+	ul#prodList li img {
+
+	}
+
+	ul#prodList li div.storyText {
+		width: 600px;
+		float: left;
+	}
+
+	ul#prodList li div.storyText h2 {
+		border-bottom: 0;
+		margin: 0;
+	}
+
+	ul#prodList li div.storyText h2 a {
+		font: bolder 100% helvetica, arial, sans-serif;
+		border-bottom: 0;
+	}
+
+
+	div.storyText {
+
+	}
+
+	div.storyText a.storyImg {
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+
+
+
+/*--- right side - contentAux---*/
+	#contentAux {
+		height: 600px;
+		width: 300px;
+		float: right;
+		position: relative;
+	}
+
+
+
+/* --- clearfix --- */
+	ul#tabs:after,
+	ul#prodList li:after,
+	#contentAux:after,
+	.clearfix:after {
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+
+	ul#tabs,
+	ul#prodList li,
+	#contentAux,
+	.clearfix {
+		*display: inline-block;
+	}
+
+
