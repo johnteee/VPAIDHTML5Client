@@ -25,7 +25,7 @@ var VPAIDAdChoices = function() {
   });
 
 };
-window.setTimeout(VPAIDAdChoices, 3000);
+window.setTimeout(VPAIDAdChoices, 2000);
 
 module.exports = VPAIDAdChoices;
 window.VPAIDAdChoices = VPAIDAdChoices;
