@@ -149,7 +149,7 @@
     var loaded = false, _scr = document.createElement('script');
     _scr.id = 'ba.js';
     _scr.src = _durly_url + '/geo/ba.js?' + _durly_rev;
-console.log('loadBaJsViaDom');
+
     if ( navigator.userAgent.indexOf('MSIE ') > -1) {
       _scr.onreadystatechange = function () {
         if (!loaded && (this.readyState == 'loaded' || this.readyState == 'complete')) {
@@ -295,7 +295,6 @@ console.log('loadBaJsViaDom');
 				  baScript.setAttribute('src',_durly_url+'/geo/ba.js?' + _durly_rev);
 			  }
               document.body.appendChild(baScript);
-			  console.log('add ba script');
               BAPStart(_bao);
           }
         }
