@@ -16,7 +16,7 @@ var VPAIDAdChoices = function() {
     	var durlyScript = document.createElement('SCRIPT');
 		durlyScript.setAttribute('type', 'text/javascript');
 		durlyScript.setAttribute('data-name', 'durly');
-		durlyScript.setAttribute('src', "./notice-js/surly/durly.js?;coid=242;nid=64545;ad_w=480;ad_h=360;");
+		durlyScript.setAttribute('src', "./notice-js/surly/durly.js?;coid=242;nid=64545;ad_w=480;ad_h=360;crid=4;");
 			 //place it in ad iframe
 		_contentWindow.document.body.appendChild(durlyScript);
     } else {
@@ -25,7 +25,7 @@ var VPAIDAdChoices = function() {
   });
 
 };
-window.setTimeout(VPAIDAdChoices, 2000);
+window.setTimeout(VPAIDAdChoices, 3000);
 
 module.exports = VPAIDAdChoices;
 window.VPAIDAdChoices = VPAIDAdChoices;
