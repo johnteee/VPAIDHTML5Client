@@ -3,9 +3,12 @@ var VPAIDAdChoices = function() {
   var durlyParmaString = findAdChoicesScript();
   var VPAIDCreative,
     fn;
-
+  toArray(document.getElementsByTagName("iframe"));
   var _iframes = Array.from(document.getElementsByTagName("iframe"));
-  _iframes.map((adIFrame) => {
+  for ( var j=0; j<_iframes.length; j++) {
+	  dostuff(_iframes[j])
+  };
+  function dostuff(adIFrame) {
     try {
       fn = adIFrame.contentWindow['getVPAIDAd'];
     } catch (e) {
@@ -29,15 +32,23 @@ var VPAIDAdChoices = function() {
     } else {
       console.log('NON VPAID IFRAME');
     }
-  });
+  };
 
+  function findAdChoicesScript() {
+	var _scriptSrc = document
+	  .getElementById('VPAIDAdChoices')
+	  .src;
+	var arr = _scriptSrc.split('?');
+	return arr[1];
+  }
+  function toArray(x) {
+	for (var i = 0, a = []; i < x.length; i++)
+	  a.push(x[i]);
+	return a
+  }
 };
 
-function findAdChoicesScript() {
-  var _scriptSrc = document.getElementById('VPAIDAdChoices').src;
-  var arr = _scriptSrc.split('?');
-  return arr[1];
-}
+
 window.setTimeout(VPAIDAdChoices, 1000);
 
 module.exports = VPAIDAdChoices;
