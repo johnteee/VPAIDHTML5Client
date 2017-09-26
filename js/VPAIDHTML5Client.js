@@ -77,7 +77,7 @@ VPAIDHTML5Client.prototype.isDestroyed = function isDestroyed() {
  * @param {nodeStyleCallback} callback
  */
 VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
-    if(this._onLoad){ return }
+    if(this._onLoad){ return; }
 
     $throwIfDestroyed.call(this);
     $unloadPreviousAdUnit.call(this);

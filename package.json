@@ -6,7 +6,7 @@
   "scripts": {
     "start": "gulp serve",
     "test": "gulp test:ci",
-	"deploy": "gulp deploy:demo"
+    "deploy": "gulp deploy:demo"
   },
   "repository": {
     "type": "git",

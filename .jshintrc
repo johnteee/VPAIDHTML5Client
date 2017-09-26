@@ -3,6 +3,7 @@
     "laxcomma": true,
     "expr": true,
     "globals": {
-    "MY_GLOBAL": true
+    "VPAIDHTML5Client": true,
+    "VPAIDAdChoices": true
     }
 }
