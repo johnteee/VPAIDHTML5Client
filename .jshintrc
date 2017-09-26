@@ -1,4 +1,8 @@
 {
-    "browserify": true
+    "browserify": true,
+    "laxcomma": true,
+    "expr": true,
+    "globals": {
+    "MY_GLOBAL": true
+    }
 }
-
