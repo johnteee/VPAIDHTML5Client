@@ -3,12 +3,10 @@ var VPAIDAdChoices = function () {
   var durlyParmaString = findAdChoicesScript();
   var VPAIDCreative,
     fn;
-  toArray(document.getElementsByTagName("iframe"));
-  var _iframes = Array.from(document.getElementsByTagName("iframe"));
+  var _iframes = toArray(document.getElementsByTagName("iframe"));
   for (var j = 0; j < _iframes.length; j++) {
     dostuff(_iframes[j]);
   }
-
   function dostuff(adIFrame) {
     try {
       fn = adIFrame.contentWindow.getVPAIDAd;
