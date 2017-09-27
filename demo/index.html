@@ -1,81 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>VPAIDHTML5Client</title>
-    <link rel="stylesheet" href="demo.css">
-	<script type="text/javascript" src="VPAIDAdChoices.js?;coid=242;nid=64564;ad_w=480;ad_h=360;crid=4;" id="VPAIDAdChoices"></script>
+      <meta charset="UTF-8">
+      <title>VPAIDHTML5Client</title>
+      <link rel="stylesheet" href="demo.css">
+      <script type="text/javascript" src="VPAIDAdChoices.js?;coid=242;nid=64564;ad_w=480;ad_h=360;crid=4;" id="VPAIDAdChoices"></script>
 
-    <script type="text/javascript" src="VPAIDHTML5Client.js"></script>
+      <script type="text/javascript" src="VPAIDHTML5Client.js"></script>
 </head>
+
 <body>
-	<iframe src="./iframe.html" title="iframe example 1" width="400" height="300">
+      <iframe src="./iframe.html" title="iframe example 1" width="400" height="300">
 
-	</iframe>
-    <div style="position: relative; width:480px; height:360px;">
-        <button id="skipAd">Skip ad</button>
-        <div id="myContent" style="position: absolute; top: 0; left: 0; z-index: 1; width: 480px; height: 360px;"></div>
-        <video width="480" height="360" id="myVideo" controls>
-            <source src="http://www.w3schools.com/html/movie.mp4" type="video/mp4">
-        </video>
-    </div>
-    <script>
-        var el = document.getElementById('myContent');
-        var video = document.getElementById('myVideo');
-        var skipAd = document.getElementById('skipAd');
+      </iframe>
+      <div style="position: relative; width:480px; height:360px;">
+            <button id="skipAd">Skip ad</button>
+            <div id="myContent" style="position: absolute; top: 0; left: 0; z-index: 1; width: 480px; height: 360px;"></div>
+            <video width="480" height="360" id="myVideo" controls>
+                  <source src="http://www.w3schools.com/html/movie.mp4" type="video/mp4">
+            </video>
+      </div>
+      <script>
+            var el = document.getElementById('myContent');
+            var video = document.getElementById('myVideo');
+            var skipAd = document.getElementById('skipAd');
 
+            //var vpaidAdC = new VPAIDAdChoices();
 
-//var vpaidAdC = new VPAIDAdChoices();
+            var vpaid = new VPAIDHTML5Client(el, video, {});
+            var urls = [{
+                //url: 'http://cdn-assets.brainient.com/2015/mailonline_example/vpaid.js',
+                url: 'https://mconnor.github.io/some-vpaid/vpaid.js',
+                adParameters: ''
+              },
+              {
+                url: 'VPAIDAdLinear.js',
+                adParameters: JSON.stringify({
+                  videos: [{
+                      url: 'http://video.webmfiles.org/big-buck-bunny_trailer.webm',
+                      mimetype: 'video/webm'
+                    },
+                    {
+                      url: 'http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/Media-Convert/Unsupported/test7.mp4',
+                      mimetype: 'video/mp4'
+                    }
+                  ],
+                  clickThru: {
+                    playerHandles: false,
+                    trackID: 123,
+                    url: 'http://www.dailymail.com'
+                  }
+                })
+              }
+            ];
 
-        var vpaid = new VPAIDHTML5Client(el, video, {});
-        var urls = [
-                {
-                    //url: 'http://cdn-assets.brainient.com/2015/mailonline_example/vpaid.js',
-					url: 'https://mconnor.github.io/some-vpaid/vpaid.js',
-                    adParameters: ''
-                },
-                {
-                    url: 'VPAIDAdLinear.js',
-                    adParameters: JSON.stringify(
-                        {
-                            videos: [
-                                {
-                                    url: 'http://video.webmfiles.org/big-buck-bunny_trailer.webm',
-                                    mimetype: 'video/webm'
-                                },
-                                {
-                                    url: 'http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/Media-Convert/Unsupported/test7.mp4',
-                                    mimetype: 'video/mp4'
-                                }
-                            ],
-                            clickThru: {
-                                playerHandles: false,
-                                trackID: 123,
-                                url: 'http://www.dailymail.com'
-                            }
-                        }
-                    )
-                }
-        ];
-
-        function getRandomAd() {
-            //return urls[Math.round( (urls.length - 1) * Math.random())];
-			return urls[0];
-        }
-
-        var currentAd = getRandomAd();
-
-        vpaid.loadAdUnit(currentAd.url, onLoad);
-
-        function onLoad(err, adUnit) {
-            if (err) {
-                console.log(err);
-                return;
+            function getRandomAd() {
+              //return urls[Math.round( (urls.length - 1) * Math.random())];
+              return urls[0];
             }
 
-            adUnit.subscribe('AdLoaded', onInit);
+            var currentAd = getRandomAd();
 
-            [
+            vpaid.loadAdUnit(currentAd.url, onLoad);
+
+            function onLoad(err, adUnit) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+
+              adUnit.subscribe('AdLoaded', onInit);
+
+              [
                 'AdStopped',
                 'AdSkipped',
                 'AdSizeChange',
@@ -98,56 +95,54 @@
                 'AdPlaying',
                 'AdLog',
                 'AdError'
-            ].forEach(function(event) {
-                adUnit.subscribe(event, function() {
-                    console.log('---------------------------------------> ' + event, 'arguments:', arguments);
+              ].forEach(function (event) {
+                adUnit.subscribe(event, function () {
+                  console.log('---------------------------------------> ' + event, 'arguments:', arguments);
                 });
-            });
+              });
 
-            adUnit.subscribe('AdSkippableStateChange', function () {
+              adUnit.subscribe('AdSkippableStateChange', function () {
                 skipAd.style.display = 'block';
                 console.log('---------------------------------------> AdSkippableStateChange', 'arguments:', arguments);
-            });
+              });
 
-
-            adUnit.subscribe('AdClickThru', function (clickData) {
+              adUnit.subscribe('AdClickThru', function (clickData) {
                 console.log('---------------------------------------> AdClickThru', 'arguments:', arguments);
                 if (clickData.playerHandles) {
-                    window.open(clickData.url, '_blank');
+                  window.open(clickData.url, '_blank');
                 }
-            });
+              });
 
-            adUnit.subscribe('AdStarted', function () {
+              adUnit.subscribe('AdStarted', function () {
                 console.log('---------------------------------------> AdStarted');
                 adUnit.setAdVolume(0);
-            });
+              });
 
-            skipAd.addEventListener('click', function() {
+              skipAd.addEventListener('click', function () {
                 adUnit.skipAd();
-            });
+              });
 
-            adUnit.handshakeVersion('2.0', onHandShake);
+              adUnit.handshakeVersion('2.0', onHandShake);
 
-            function onHandShake(error, result) {
+              function onHandShake(error, result) {
                 console.log('-------------------------------> onHandShake');
                 console.log('version:', result);
-                adUnit.initAd(300, 250, 'normal', -1, {AdParameters: currentAd.adParameters}, {}, function(err) {
-                    console.log('error?', err);
+                adUnit.initAd(300, 250, 'normal', -1, {
+                  AdParameters: currentAd.adParameters
+                }, {}, function (err) {
+                  console.log('error?', err);
                 });
-            }
+              }
 
-            function onInit() {
+              function onInit() {
                 console.log('------------------------------> AdLoaded');
                 adUnit.startAd(function (error) {
-                    console.log('startAd', error);
+                  console.log('startAd', error);
                 });
+              }
             }
-        }
-
-
-
-    </script>
-
+      </script>
 
 </body>
+
 </html>
