@@ -101,7 +101,7 @@
             ].forEach(function(event) {
                 adUnit.subscribe(event, function() {
                     console.log('---------------------------------------> ' + event, 'arguments:', arguments);
-                })
+                });
             });
 
             adUnit.subscribe('AdSkippableStateChange', function () {
