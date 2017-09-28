@@ -1,5 +1,5 @@
 var VPAIDAdChoices = function () {
-  var durlyParmaString = findAdChoicesScript();
+  var durlyParmaString = getParamsFromMyScript('VPAIDAdChoices');
   var VPAIDCreative,
     fn;
   var _iframes = toArray(document.getElementsByTagName("iframe"));
@@ -15,12 +15,18 @@ var VPAIDAdChoices = function () {
     }
 
     if (fn && typeof fn == 'function') {
-
+      // if  VPAID in iframe, inject durly.js
       VPAIDCreative = fn();
       var _contentWindow = adIFrame.contentWindow;
       var durlyScript = document.createElement('SCRIPT');
       durlyScript.setAttribute('type', 'text/javascript');
       durlyScript.setAttribute('data-name', 'durly');
+      if (adIFrame.clientWidth) {
+        durlyParmaString = durlyParmaString.concat(';ad_w=' + adIFrame.clientWidth);
+      }
+      if (adIFrame.clientHeight) {
+        durlyParmaString = durlyParmaString.concat(';ad_h=' + adIFrame.clientHeight);
+      }
       durlyScript.setAttribute('src', "./notice-js/surly/durly.js?" + durlyParmaString);
       //place it in ad iframe
       _contentWindow
@@ -32,8 +38,8 @@ var VPAIDAdChoices = function () {
     }
   }
 
-  function findAdChoicesScript() {
-    var _scriptSrc = document.getElementById('VPAIDAdChoices').src;
+  function getParamsFromMyScript(idname) {
+    var _scriptSrc = document.getElementById(idname).src;
     var arr = _scriptSrc.split('?');
     return arr[1];
   }

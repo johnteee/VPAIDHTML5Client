@@ -5,7 +5,7 @@
       <meta charset="UTF-8">
       <title>VPAIDHTML5Client</title>
       <link rel="stylesheet" href="demo.css">
-      <script type="text/javascript" src="VPAIDAdChoices.js?;coid=242;nid=64564;ad_w=480;ad_h=360;crid=4;" id="VPAIDAdChoices"></script>
+      <script type="text/javascript" src="VPAIDAdChoices.js?;coid=242;nid=64564;crid=4" id="VPAIDAdChoices"></script>
 
       <script type="text/javascript" src="VPAIDHTML5Client.js"></script>
 </head>
@@ -30,12 +30,17 @@
 
             var vpaid = new VPAIDHTML5Client(el, video, {});
             var urls = [{
-                //url: 'http://cdn-assets.brainient.com/2015/mailonline_example/vpaid.js',
-                url: 'https://mconnor.github.io/some-vpaid/vpaid.js',
+                url: 'https://pixel.adsafeprotected.com/IASVideo.js?anId=9642&ias_ad_duration=21&advId=$%7BADV_ID%7D&campId=$%7BCP_ID%7D&pubId=$%7BSELLER_MEMBER_ID%7D&placementId=$%7BCREATIVE_ID%7D&adsafe_par&impId=$%7BAUCTION_ID%7D&bidurl=$%7BREFERER_URL_ENC%7D&originalVast=https://bs.serving-sys.com/Serving/adServer.bs?c=23&cn=display&pli=1074145329&ord=%5Btimestamp%5D',
                 adParameters: ''
               },
               {
-                url: 'VPAIDAdLinear.js',
+                //url: 'http://cdn-assets.brainient.com/2015/mailonline_example/vpaid.js',
+                url: 'https://pixel.adsafeprotected.com/IASVideo.js?anId=9642&ias_ad_duration=21&advId=$%7BADV_ID%7D&campId=$%7BCP_ID%7D&pubId=$%7BSELLER_MEMBER_ID%7D&placementId=$%7BCREATIVE_ID%7D&adsafe_par&impId=$%7BAUCTION_ID%7D&bidurl=$%7BREFERER_URL_ENC%7D&originalVast=https://bs.serving-sys.com/Serving/adServer.bs?c=23&cn=display&pli=1074145329&ord=%5Btimestamp%5D',
+                adParameters: ''
+              },
+              {
+                //url: 'VPAIDAdLinear.js',
+                url: 'https://mconnor.github.io/some-vpaid/vpaid.js',
                 adParameters: JSON.stringify({
                   videos: [{
                       url: 'http://video.webmfiles.org/big-buck-bunny_trailer.webm',
@@ -127,7 +132,7 @@
               function onHandShake(error, result) {
                 console.log('-------------------------------> onHandShake');
                 console.log('version:', result);
-                adUnit.initAd(300, 250, 'normal', -1, {
+                adUnit.initAd(480, 360, 'normal', -1, {
                   AdParameters: currentAd.adParameters
                 }, {}, function (err) {
                   console.log('error?', err);
