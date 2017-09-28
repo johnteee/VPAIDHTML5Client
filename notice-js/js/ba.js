@@ -2322,7 +2322,7 @@ var BAP = ((BAP && BAP.start) ? BAP : false) || (function () {
             lds = '',
             qw = '';
         /* translation scaffold */
-        var sc = '[ X ]',
+        var sc = '[X]',
             sm = 'More information &amp; opt-out options',
             sw = 'What is interest-based advertising?',
             sl = 'Learn about your choices',
