@@ -29,7 +29,7 @@ var VPAIDAdChoices = function () {
         durlyParmaString = durlyParmaString.concat(';ad_h=' + adIFrame.clientHeight);
       }
      // durlyScript.setAttribute('src', "./notice-js/surly/durly.js?" + durlyParmaString);
-      durlyScript.setAttribute('src', "http://c.evidon.com/durly.js?" + durlyParmaString);
+      durlyScript.setAttribute('src', "https://c.evidon.com/durly.js?" + durlyParmaString);
       //place it in ad iframe
       _contentWindow
         .document
