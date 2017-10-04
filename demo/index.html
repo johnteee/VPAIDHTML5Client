@@ -21,7 +21,7 @@
                   <source src="http://www.w3schools.com/html/movie.mp4" type="video/mp4">
             </video>
       </div>
-      <script>
+      <script type="text/javascript">
             var el = document.getElementById('myContent');
             var video = document.getElementById('myVideo');
             var skipAd = document.getElementById('skipAd');
@@ -59,7 +59,7 @@
 
             function getRandomAd() {
               //return urls[Math.round( (urls.length - 1) * Math.random())];
-              return urls[0];
+              return urls[1];
             }
 
             var currentAd = getRandomAd();
@@ -144,7 +144,7 @@
               }
             }
       </script>
-
+     
 </body>
 
 </html>
