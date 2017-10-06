@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
       <meta charset="UTF-8">
       <title>VPAIDHTML5Client</title>
       <link rel="stylesheet" href="demo.css">
-      <script type="text/javascript" src="VPAIDAdChoices.js?;coid=242;nid=104795" id="VPAIDAdChoices"></script>
-
+      <script type="text/javascript" src="VPAIDAdChoices.js?;coid=242;nid=104795;delay_start=2;position=bottom-left" id="VPAIDAdChoices"></script>
       <script type="text/javascript" src="VPAIDHTML5Client.js"></script>
 </head>
-
 <body>
       <iframe src="./iframe.html" title="iframe example 1" width="400" height="300">
-
       </iframe>
       <div style="position: relative; width:480px; height:360px;">
             <button id="skipAd">Skip ad</button>
@@ -22,6 +18,8 @@
             </video>
       </div>
       <script type="text/javascript">
+
+      
             var el = document.getElementById('myContent');
             var video = document.getElementById('myVideo');
             var skipAd = document.getElementById('skipAd');
@@ -59,7 +57,7 @@
 
             function getRandomAd() {
               //return urls[Math.round( (urls.length - 1) * Math.random())];
-              return urls[1];
+              return urls[0];
             }
 
             var currentAd = getRandomAd();
@@ -118,6 +116,8 @@
               adUnit.subscribe('AdStarted', function () {
                 console.log('---------------------------------------> AdStarted');
                 adUnit.setAdVolume(0);
+
+                VPAIDAdChoices();
               });
 
               skipAd.addEventListener('click', function () {
@@ -132,7 +132,7 @@
                 adUnit.initAd(480, 360, 'normal', -1, {
                   AdParameters: currentAd.adParameters
                 }, {}, function (err) {
-                  console.log('error?', err);
+                  console.log('onHandShake error', err);
                 });
               }
 
@@ -143,8 +143,10 @@
                 });
               }
             }
+
+
+            
       </script>
-     
 </body>
 
 </html>
