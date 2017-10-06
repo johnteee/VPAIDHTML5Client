@@ -1,4 +1,13 @@
 VPAIDHTML5Client
+
+This is a VPAID compliant player that has been forked. What is new here is VPAIDChoices.js.
+This script polls iframes on the page, test for VPAID content, gets the ad dimensions, and then drops durly.js into it.
+
+The rest of the notes are in regards to the VPAID ad player.
+
+Mike Connor
+
+
 ================
 [![bitHound Score](https://www.bithound.io/github/MailOnline/VPAIDHTML5Client/badges/score.svg)](https://www.bithound.io/github/MailOnline/VPAIDHTML5Client/master)
 [![Code Climate](https://codeclimate.com/github/MailOnline/VPAIDHTML5Client/badges/gpa.svg)](https://codeclimate.com/github/MailOnline/VPAIDHTML5Client)
