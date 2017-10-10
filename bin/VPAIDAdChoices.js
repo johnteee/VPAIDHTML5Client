@@ -14,11 +14,9 @@ var VPAIDAdChoices = function () {
   var _iframes = toArray(document.getElementsByTagName("iframe"));
  
   for (var j = 0; j < _iframes.length; j++) {
-    //dostuff(_iframes[j]);
     setTimeout(dostuff, dstart*1000, _iframes[j]);
   }
   function dostuff(adIFrame) {
-    
     if (adIFrame.contentWindow.getVPAIDAd && typeof adIFrame.contentWindow.getVPAIDAd === "function") {
       console.log("we have VPAID");
       var _contentWindow = adIFrame.contentWindow;
@@ -31,9 +29,11 @@ var VPAIDAdChoices = function () {
       if (adIFrame.clientHeight) {
         durlyParmaString = durlyParmaString.concat(";ad_h=" + adIFrame.clientHeight);
       }
-      //durlyScript.setAttribute('src', "./notice-js/surly/durly.js?" + durlyParmaString);
+     
+      //durlyScript.setAttribute("src", "https://mconnor.github.io/notice-js-mike/surly/durly.js?" + durlyParmaString);
+      //  console.log("testing on mconnor.github.io/surly/notice-js-mike/");
       durlyScript.setAttribute("src", "https://c.evidon.com/durly.js?" + durlyParmaString);
-      
+     
       _contentWindow.document.body.appendChild(durlyScript); //place it in ad iframe
     } else {
       console.log("NON VPAID IFRAME");

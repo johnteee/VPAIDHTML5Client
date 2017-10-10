@@ -4,7 +4,8 @@ module.exports ={
         "es6": false
     },
     "globals": {
-        "BAP": true
+        "BAP": true,
+        "module": true
     },
     "extends": "eslint:recommended",
     "rules": {
