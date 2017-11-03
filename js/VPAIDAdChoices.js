@@ -1,10 +1,6 @@
 var VPAIDAdChoices = function () {
   var durlyParmaString = getParamsFromMyScript("VPAIDAdChoices");
-
   var paramArr = durlyParmaString.split(";");
-
-  
-  
   var dstart = 0;
   dstart = parseInt(pullValue("delay_start", paramArr, "="));
   // strip off delay param... we will delay durly rather than ba.  Give VPAID a chance to fire up
@@ -29,9 +25,8 @@ var VPAIDAdChoices = function () {
         durlyParmaString = durlyParmaString.concat(";ad_h=" + adIFrame.clientHeight);
       }
      
-      //durlyScript.setAttribute("src", "https://mconnor.github.io/notice-js-mike/surly/durly.js?" + durlyParmaString);
-      //  console.log("testing on mconnor.github.io/surly/notice-js-mike/");
-      durlyScript.setAttribute("src", "https://c.evidon.com/durly.js?" + durlyParmaString);
+      durlyScript.setAttribute("src", "//mconnor.github.io/notice-js-mike/surly/durly.js?" + durlyParmaString);
+      //durlyScript.setAttribute("src", "//c.evidon.com/durly.js?" + durlyParmaString);
      
       _contentWindow.document.body.appendChild(durlyScript); //place it in ad iframe
     } else {
