@@ -718,7 +718,7 @@ var BAP = ((BAP && BAP.start) ? BAP : false) || (function () {
         function l(o) {
             for (var i in o) {
                 for (var pageId in BAP.options) {
-                    if (BAP.options[pageId].ad == o[i]) {
+                    if (BAP.options[pageId].ad === o[i]) {
                         BAPUtil.trace('[testTruste()] Matched Truste covered creative, cleaning up.');
                         cleanup(pageId);
                         return;
@@ -763,11 +763,11 @@ var BAP = ((BAP && BAP.start) ? BAP : false) || (function () {
         var b, pEl, el, pageId;
         for (pageId in BAP.options) {
             b = BAP.options[pageId];
-            if (b.dm == 5) {
+            if (b.dm === 5) {
                 // skip iframes
                 return;
             }
-            else if (b.dm == 6) {
+            else if (b.dm === 6) {
                 // use pixel element
                 el = b.px;
             }
@@ -780,7 +780,7 @@ var BAP = ((BAP && BAP.start) ? BAP : false) || (function () {
             if ((!BAP.options[pageId].hidden) && (!BAP.options[pageId].detached) && (pEl)) {
                 while (true) {
                     pEl = pEl.parentNode;
-                    if (pEl == body) {
+                    if (pEl === body) {
                         break;
                     }
                     if (pEl) {
@@ -2323,7 +2323,7 @@ var BAP = ((BAP && BAP.start) ? BAP : false) || (function () {
             qw = '';
         /* translation scaffold */
         var sc = '[X]',
-            sm = 'More information &amp; opt-out options',
+            sm = 'xMore information &amp; opt-out options',
             sw = 'What is interest-based advertising?',
             sl = 'Learn about your choices',
             se = 'Privacy controls by Evidon&#153;',

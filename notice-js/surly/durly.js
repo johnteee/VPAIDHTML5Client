@@ -2,14 +2,17 @@
   var is_mobile = (/ip(hone|od)|(android).+mobile|opera m(ob|in)i/i).test(navigator.userAgent) || (/Android/).test(navigator.userAgent) || (/iPhone/).test(navigator.userAgent) || (/iPad/).test(navigator.userAgent);
 
   // moved this into it's own variable so it can be string-replaced easier
-  var _durly_root = "c.evidon.com";
+  //var _durly_root = "c.evidon.com";
+  var _durly_root = "github.com/mconnor/notice-js-mike/tree/master/docs";
 
   var i, j, _bao = {}, _durly_s = document.getElementsByTagName('SCRIPT'),
     protocol = (window.location.href.indexOf('http://') === 0) ? 'http://' : 'https://',
-    _durly_url = protocol + _durly_root;
+   //_durly_url = protocol + _durly_root;
+  _durly_url = "https://mconnor.github.io/notice-js-mike/surly/durly.js";
 
   var _durly_rev;
-  (localTestingEnv) ? _durly_rev = "r170209" : _durly_rev = "rDEV";
+  //(localTestingEnv) ? _durly_rev = "r170209" : _durly_rev = "rDEV";
+_durly_rev = "rDEV";
 
   window.BAPStart = function(opts) {
     try {
@@ -147,7 +150,7 @@
 
   function loadBaJsViaDom(durly_script, opts) {
     var loaded = false, _scr = document.createElement('script');
-    _scr.id = 'ba.js';
+    _scr.id = 'ba.js';_durly_root
     _scr.src = _durly_url + '/geo/ba.js?' + _durly_rev;
 
     if ( navigator.userAgent.indexOf('MSIE ') > -1) {
@@ -183,10 +186,10 @@
     px.style.display = 'none';
     px.id = 'bap-pixel-' + randomValue;
     if (scriptEle) {
-        scriptEle.parentNode.insertBefore(px, scriptEle.nextSibling);
+      scriptEle.parentNode.insertBefore(px, scriptEle.nextSibling);
     }
     else {
-        document.body.appendChild(px);
+      document.body.appendChild(px);
     }
   }
 
@@ -290,7 +293,9 @@
               var baScript = document.createElement('SCRIPT');
               baScript.setAttribute('id','ba.js');
 			  if (localTestingEnv) {
-				  baScript.setAttribute('src', './notice-js/js/ba.js?' + _durly_rev);
+          baScript.setAttribute('src', './notice-js/js/ba.js?' + _durly_rev);
+          //baScript.setAttribute('src', '.https://mconnor.github.io/notice-js-mike//notice-js/js/ba.js?' + _durly_rev);
+          
 			  } else {
 				  baScript.setAttribute('src',_durly_url+'/geo/ba.js?' + _durly_rev);
 			  }
