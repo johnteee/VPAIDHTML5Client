@@ -13,7 +13,7 @@ var VPAIDAdChoices = function () {
   }
   function dostuff(adIFrame) {
     if (adIFrame.contentWindow.getVPAIDAd && typeof adIFrame.contentWindow.getVPAIDAd === "function") {
-      console.log("we have VPAID");
+      console.log(`we have VPAID  ${adIFrame.clientWidth} , ${adIFrame.clientHeight}` );
       var _contentWindow = adIFrame.contentWindow;
       var durlyScript = document.createElement("SCRIPT");
       durlyScript.setAttribute("type", "text/javascript");
@@ -25,7 +25,7 @@ var VPAIDAdChoices = function () {
         durlyParmaString = durlyParmaString.concat(";ad_h=" + adIFrame.clientHeight);
       }
      
-      durlyScript.setAttribute("src", "//mconnor.github.io/notice-js-mike/surly/durly.js?" + durlyParmaString);
+      durlyScript.setAttribute("src", "https://mconnor.github.io/notice-js-mike/surly/durly.js?" + durlyParmaString);
       //durlyScript.setAttribute("src", "//c.evidon.com/durly.js?" + durlyParmaString);
      
       _contentWindow.document.body.appendChild(durlyScript); //place it in ad iframe
