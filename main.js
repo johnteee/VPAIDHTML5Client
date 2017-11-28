@@ -7,8 +7,8 @@ var skipAd = document.getElementById("skipAd");
 var vpaid = new VPAIDHTML5Client(el, video, {});
 var urls = [
   {
-    url: "//cdn-assets.brainient.com/2015/mailonline_example/vpaid.js",
-   // url: '//pixel.adsafeprotected.com/IASVideo.js?anId=9642&ias_ad_duration=21&advId=$%7BADV_ID%7D&campId=$%7BCP_ID%7D&pubId=$%7BSELLER_MEMBER_ID%7D&placementId=$%7BCREATIVE_ID%7D&adsafe_par&impId=$%7BAUCTION_ID%7D&bidurl=$%7BREFERER_URL_ENC%7D&originalVast=https://bs.serving-sys.com/Serving/adServer.bs?c=23&cn=display&pli=1074145329&ord=%5Btimestamp%5D',
+   // url: "//cdn-assets.brainient.com/2015/mailonline_example/vpaid.js",
+   url: '//pixel.adsafeprotected.com/IASVideo.js?anId=9642&ias_ad_duration=21&advId=$%7BADV_ID%7D&campId=$%7BCP_ID%7D&pubId=$%7BSELLER_MEMBER_ID%7D&placementId=$%7BCREATIVE_ID%7D&adsafe_par&impId=$%7BAUCTION_ID%7D&bidurl=$%7BREFERER_URL_ENC%7D&originalVast=https://bs.serving-sys.com/Serving/adServer.bs?c=23&cn=display&pli=1074145329&ord=%5Btimestamp%5D',
     adParameters: ""
   },
   {
