@@ -108,8 +108,6 @@ function onLoad(err, adUnit) {
   adUnit.subscribe("AdStarted", function() {
     console.log("---------------------------------------> AdStarted");
     adUnit.setAdVolume(0);
-
-    VPAIDAdChoices();
   });
 
   skipAd.addEventListener("click", function() {
