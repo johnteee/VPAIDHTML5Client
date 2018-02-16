@@ -10,7 +10,7 @@
     var _iframes = toArray(document.getElementsByTagName("iframe"));
 
     
-    var int = setInterval(checkAllIFrames, 2000);
+    var int = setInterval(checkAllIFrames, 3000);
 
     //setTimeout(checkAllIFrames, 2000);
   
