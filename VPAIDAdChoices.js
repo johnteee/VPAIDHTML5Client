@@ -9,19 +9,40 @@
 
     var _iframes = toArray(document.getElementsByTagName("iframe"));
 
-    for (var j = 0; j < _iframes.length; j++) {
-        setTimeout(checkIFRAMEorVPAID, dstart * 1000, _iframes[j]);
+    
+    var int = setInterval(checkAllIFrames, 2000);
+
+    //setTimeout(checkAllIFrames, 2000);
+  
+    function checkAllIFrames(){
+        for (var j = 0; j < _iframes.length; j++) {
+            //setTimeout(checkIFRAMEorVPAID, dstart * 1000, _iframes[j], j);
+            checkIFRAMEorVPAID( _iframes[j], j)
+        }
     }
-    function checkIFRAMEorVPAID(adIFrame) {
+
+
+    // while (_iframes.length > 0) {
+    //     setTimeout(checkIFRAMEorVPAID, dstart * 1000, _iframes[j], j);
+    //     count ++;
+    // }
+    function checkIFRAMEorVPAID(adIFrame, j) {
+        console.log('CHECKING iframe ' + j);
         if (
             adIFrame.contentWindow.getVPAIDAd &&
             typeof adIFrame.contentWindow.getVPAIDAd === "function"
         ) {
-            console.log(
-                `we have VPAID  ${adIFrame.clientWidth} , ${
+            console.log(j + 
+                ` we have VPAID  ${adIFrame.clientWidth} , ${
                     adIFrame.clientHeight
                 }`
             );
+            _iframes.splice(j, 1);
+            if (_iframes.length == 0 ) {
+                clearInterval(int);
+                console.log('xxxxxxxx clearTimeout');
+            }
+          
             var _contentWindow = adIFrame.contentWindow;
             var durlyScript = document.createElement("SCRIPT");
             durlyScript.setAttribute("type", "text/javascript");
