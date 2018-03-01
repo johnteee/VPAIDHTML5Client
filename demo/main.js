@@ -12,8 +12,8 @@ var urls = [
     adParameters: ""
   },
   {
-    //url: 'VPAIDAdLinear.js',
-    url: "https://mconnor.github.io/some-vpaid/vpaid.js",
+
+    url: "//mconnor.github.io/vpaidExamples/playVideo/VpaidVideoAd.js",
     adParameters: JSON.stringify({
       videos: [
         {
@@ -37,7 +37,7 @@ var urls = [
 
 function getRandomAd() {
   //return urls[Math.round( (urls.length - 1) * Math.random())];
-  return urls[0];
+  return urls[1];
 }
 
 var currentAd = getRandomAd();
