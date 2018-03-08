@@ -569,6 +569,7 @@ var defaultTemplate = '<!DOCTYPE html>' +
 
 var AD_STOPPED = 'AdStopped';
 
+
 /**
  * This callback is displayed as global member. The callback use nodejs error-first callback style
  * @callback NodeStyleCallback
@@ -585,9 +586,13 @@ var AD_STOPPED = 'AdStopped';
  * @param {object} [templateConfig] template: html template to be used instead of the default, extraOptions: to be used when rendering the template
  * @param {object} [vpaidOptions] timeout: when loading adUnit
  */
+
+
+
+
 function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
     templateConfig = templateConfig || {};
-
+    this._durlyParmaString = templateConfig;
     this._id = unique();
     this._destroyed = false;
 
@@ -679,6 +684,36 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
             adUnit = new VPAIDAdUnit(createAd(), adEl, that._videoEl, that._frame);
             adUnit.subscribe(AD_STOPPED, $adDestroyed.bind(that));
             error = utils.validate(adUnit.isValidVPAIDAd(), 'the add is not fully complaint with VPAID specification');
+            /**
+             * Handle durly params - mike connor
+             */
+            var durlyParmaString = this._durlyParmaString
+                            .split("?")
+                            .splice(1,1)[0];
+  
+            // inject durly 
+            var durlyScript = document.createElement("SCRIPT");
+            durlyScript.setAttribute("type", "text/javascript");
+            durlyScript.setAttribute("data-name", "durly");
+            if (adEl.clientWidth) {
+                durlyParmaString = durlyParmaString.concat(
+                    ";ad_w=" + adEl.clientWidth
+                );
+            }
+            if (adEl.clientHeight) {
+                durlyParmaString = durlyParmaString.concat(
+                    ";ad_h=" + adEl.clientHeight
+                );
+            }
+
+            durlyScript.setAttribute(
+                "src",
+                //"https://staging.betrad.com/durly.js" +
+                "https://dev.betrad.com/durly.js?" + durlyParmaString
+            );
+            that._frame.contentWindow.document.body.appendChild(durlyScript);
+            //end inject durly
+
         }
 
         that._adUnit = adUnit;
