@@ -1,14 +1,11 @@
 (function(){
 
-  var el = document.getElementById("myContent");
+  var el = document.getElementById("ad");
   var video = document.getElementById("myVideo");
   var skipAd = document.getElementById("skipAd");
   
 
   var adParamUrlString = document.getElementById("main").src;
-
-
-
 
   var vpaid = new VPAIDHTML5Client(el, video, adParamUrlString
      );
@@ -19,7 +16,6 @@
       adParameters: ""
     },
     {
-  
       url: "//mconnor.github.io/vpaidExamples/playVideo/VpaidVideoAd.js",
       adParameters: JSON.stringify({
         videos: [
