@@ -7,7 +7,7 @@
 
   var adParamUrlString = document.getElementById("main").src;
 
-  var vpaid = new VPAIDHTML5Client(el, video, adParamUrlString
+  var vpaid = new VPAIDHTML5Client(el, video, {durly:adParamUrlString}
      );
   var urls = [
     {
@@ -24,8 +24,7 @@
             mimetype: "video/webm"
           },
           {
-            url:
-              "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+            url:"http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
             mimetype: "video/mp4"
           }
         ],
@@ -85,6 +84,11 @@
           "arguments:",
           arguments
         );
+        switch (event){
+          case 'AdStopped':
+            console.log('start the main video now');
+            video.play(); 
+        }
       });
     });
   

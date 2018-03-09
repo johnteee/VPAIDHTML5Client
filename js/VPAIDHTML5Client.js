@@ -40,7 +40,6 @@ var AD_STOPPED = 'AdStopped';
 
 function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
     templateConfig = templateConfig || {};
-    this._durlyParmaString = templateConfig;
     this._id = unique();
     this._destroyed = false;
 
@@ -50,7 +49,8 @@ function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
 
     this._templateConfig = {
         template: templateConfig.template || defaultTemplate,
-        extraOptions: templateConfig.extraOptions || {}
+        extraOptions: templateConfig.extraOptions || {},
+        durly: templateConfig.durly || {}
     };
 }
 
@@ -135,7 +135,7 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
             /**
              * Handle durly params - mike connor
              */
-            var durlyParmaString = this._durlyParmaString
+            var durlyParmaString = this._templateConfig.durly
                             .split("?")
                             .splice(1,1)[0];
   
