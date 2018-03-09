@@ -25,7 +25,7 @@
           },
           {
             url:
-              "http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/Media-Convert/Unsupported/test7.mp4",
+              "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
             mimetype: "video/mp4"
           }
         ],
