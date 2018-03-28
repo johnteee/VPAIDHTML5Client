@@ -18,12 +18,13 @@
       adParameters: JSON.stringify({
         videos: [
           {
-            //url: "http://video.webmfiles.org/big-buck-bunny_trailer.webm",
-            url: "./movs/mov_bbb.webm",
+            //url: "//video.webmfiles.org/big-buck-bunny_trailer.webm",
+            //url: "./movs/mov_bbb.webm",
+            url: "https://mconnor.github.io/VPAIDHTML5Client/movs/mov_bbb.webm",
             mimetype: "video/webm"
           },
           {
-            url:"http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
+            url:"//download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
             mimetype: "video/mp4"
           }
         ],
