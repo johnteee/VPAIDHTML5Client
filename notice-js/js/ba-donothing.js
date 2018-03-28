@@ -1,1 +1,0 @@
-var BAP={start: function(options){}};
