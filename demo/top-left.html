@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>VPAIDHTML5Client</title>
     <link rel="stylesheet" href="demo.css">
-    <script type="text/javascript" src="VPAIDHTML5Client.js"></script>
 </head>
 
 <body>
@@ -15,10 +15,11 @@
         <div id="ad" style="position: absolute; top: 0; left: 0; z-index: 1; width: 480px; height: 360px;"></div>
         <video playsinline width="480" height="360" id="myVideo" controls>
             <source src="//www.w3schools.com/html/movie.webm" type="video/webm">
-            <source src="//www.w3schools.com/html/movie.mp4" type="video/mp4">
+            <source src="http://mirrors.standaloneinstaller.com/video-sample/dolbycanyon.mp4" type="video/mp4">
         </video>
     </div>
-    <script type="text/javascript" src="./main.js?;vpaid=true;coid=242;nid=64564;position=top-left" id='main'></script>
+    <script type="text/javascript" src="VPAIDHTML5Client.js?;coid=242;nid=64564;position=top-left" id='adchoices-vpaid'></script>
+    <script type="text/javascript" src="./main.js" id='main'></script>
 </body>
 
 </html>

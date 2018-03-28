@@ -1,5 +1,9 @@
 'use strict';
 
+console.log('VPAIDHTML5Client');
+
+var adParamUrlString = document.getElementById("adchoices-vpaid").src;
+
 var utils = require('./utils');
 var unique = utils.unique('vpaidIframe');
 var VPAIDAdUnit = require('./VPAIDAdUnit');
@@ -39,6 +43,8 @@ var AD_STOPPED = 'AdStopped';
 
 
 function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
+
+
     templateConfig = templateConfig || {};
     this._id = unique();
     this._destroyed = false;
@@ -50,7 +56,7 @@ function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
     this._templateConfig = {
         template: templateConfig.template || defaultTemplate,
         extraOptions: templateConfig.extraOptions || {},
-        durly: templateConfig.durly || {}
+        durly: adParamUrlString || {}
     };
 }
 
@@ -153,10 +159,9 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
                     ";ad_h=" + adEl.clientHeight
                 );
             }
-
+            durlyParmaString = durlyParmaString.concat(";vpaid=true");
             durlyScript.setAttribute(
                 "src",
-                //"https://staging.betrad.com/durly.js" +
                 "https://dev.betrad.com/durly.js?" + durlyParmaString
             );
             that._frame.contentWindow.document.body.appendChild(durlyScript);
