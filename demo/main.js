@@ -5,9 +5,7 @@
   var skipAd = document.getElementById("skipAd");
   
 
-  var adParamUrlString = document.getElementById("main").src;
-
-  var vpaid = new VPAIDHTML5Client(el, video, {durly:adParamUrlString}
+  var vpaid = new VPAIDHTML5Client(el, video
      );
   var urls = [
     {
@@ -16,11 +14,12 @@
       adParameters: ""
     },
     {
-      url: "//mconnor.github.io/vpaidExamples/playVideo/VpaidVideoAd.js",
+      url: "https://mconnor.github.io/vpaidExamples/playVideo/VpaidVideoAd.js",
       adParameters: JSON.stringify({
         videos: [
           {
-            url: "http://video.webmfiles.org/big-buck-bunny_trailer.webm",
+            //url: "http://video.webmfiles.org/big-buck-bunny_trailer.webm",
+            url: "./movs/mov_bbb.webm",
             mimetype: "video/webm"
           },
           {
@@ -39,7 +38,7 @@
   
   function getRandomAd() {
     //return urls[Math.round( (urls.length - 1) * Math.random())];
-    return urls[1];
+    return urls[0];
   }
   
   var currentAd = getRandomAd();
@@ -47,6 +46,7 @@
   vpaid.loadAdUnit(currentAd.url, onLoad);
   
   function onLoad(err, adUnit) {
+    var fistpass = true;
     if (err) {
       console.log(err);
       return;
@@ -62,7 +62,7 @@
       "AdDurationChange",
       "AdExpandedChange",
       "AdRemainingTimeChange", // [Deprecated in 2.0] but will be still fired for backwards compatibility
-      "AdVolumeChange",
+      //"AdVolumeChange",
       "AdImpression",
       "AdVideoStart",
       "AdVideoFirstQuartile",
@@ -87,7 +87,9 @@
         switch (event){
           case 'AdStopped':
             console.log('start the main video now');
-            video.play(); 
+            //video.play(); 
+          
+
         }
       });
     });
@@ -111,10 +113,18 @@
         window.open(clickData.url, "_blank");
       }
     });
-  
+    adUnit.subscribe("AdVolumeChange", function() {
+      console.log("---------------------------------------> AdVolumeChange"  );
+    
+      // if (fistpass) {
+      //   !fistpass;
+      //   adUnit.adVolume = 0;
+      // }
+      //adUnit.setAdVolume(0);
+    });
     adUnit.subscribe("AdStarted", function() {
       console.log("---------------------------------------> AdStarted");
-      adUnit.setAdVolume(0);
+     adUnit.setAdVolume(0);
     });
   
     skipAd.addEventListener("click", function() {
