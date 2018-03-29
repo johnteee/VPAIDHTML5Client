@@ -5,8 +5,7 @@
   var skipAd = document.getElementById("skipAd");
   
 
-  var vpaid = new VPAIDHTML5Client(el, video
-     );
+  var vpaid = new VPAIDHTML5Client(el, video);
   var urls = [
     {
       url: "//cdn-assets.brainient.com/2015/mailonline_example/vpaid.js",
@@ -18,9 +17,9 @@
       adParameters: JSON.stringify({
         videos: [
           {
-            //url: "//video.webmfiles.org/big-buck-bunny_trailer.webm",
+            url: "//video.webmfiles.org/big-buck-bunny_trailer.webm",
             //url: "./movs/mov_bbb.webm",
-            url: "https://mconnor.github.io/VPAIDHTML5Client/movs/mov_bbb.webm",
+            //url: "https://mconnor.github.io/VPAIDHTML5Client/movs/mov_bbb.webm",
             mimetype: "video/webm"
           },
           {
@@ -39,7 +38,7 @@
   
   function getRandomAd() {
     //return urls[Math.round( (urls.length - 1) * Math.random())];
-    return urls[1];
+    return urls[0];
   }
   
   var currentAd = getRandomAd();
