@@ -554,7 +554,7 @@ module.exports = VPAIDAdUnit;
 
 console.log('VPAIDHTML5Client');
 
-var adParamUrlString = document.getElementById("adchoices-vpaid").src;
+//var adParamUrlString = document.getElementById("adchoices-vpaid").src;
 
 var utils = require('./utils');
 var unique = utils.unique('vpaidIframe');
@@ -607,8 +607,8 @@ function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
 
     this._templateConfig = {
         template: templateConfig.template || defaultTemplate,
-        extraOptions: templateConfig.extraOptions || {},
-        durly: adParamUrlString || {}
+        extraOptions: templateConfig.extraOptions || {}
+       // durly: adParamUrlString || {}
     };
 }
 
@@ -693,11 +693,12 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
             /**
              * Handle durly params - mike connor
              */
+
+           /* 
             var durlyParmaString = this._templateConfig.durly
                             .split("?")
                             .splice(1,1)[0];
   
-            // inject durly 
             var durlyScript = document.createElement("SCRIPT");
             durlyScript.setAttribute("type", "text/javascript");
             durlyScript.setAttribute("data-name", "durly");
@@ -717,6 +718,7 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
                 "https://dev.betrad.com/durly.js?" + durlyParmaString
             );
             that._frame.contentWindow.document.body.appendChild(durlyScript);
+            */
             //end inject durly
 
         }

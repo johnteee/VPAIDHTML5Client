@@ -38,7 +38,7 @@
   
   function getRandomAd() {
     //return urls[Math.round( (urls.length - 1) * Math.random())];
-    return urls[1];
+    return urls[0];
   }
   
   var currentAd = getRandomAd();
