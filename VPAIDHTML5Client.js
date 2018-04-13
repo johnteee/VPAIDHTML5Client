@@ -287,7 +287,7 @@ function addStaticToInterface(Interface, name, value) {
 
 },{}],2:[function(require,module,exports){
 "use strict";
-
+console.log('window.clientHeight ' +window.clientHeight);
 var IVPAIDAdUnit = require("./IVPAIDAdUnit");
 var Subscriber = require("./subscriber");
 var checkVPAIDInterface = IVPAIDAdUnit.checkVPAIDInterface;
@@ -553,8 +553,7 @@ module.exports = VPAIDAdUnit;
 'use strict';
 
 console.log('VPAIDHTML5Client');
-
-//var adParamUrlString = document.getElementById("adchoices-vpaid").src;
+var adParamUrlString = document.getElementById("adchoices-vpaid").src;
 
 var utils = require('./utils');
 var unique = utils.unique('vpaidIframe');
@@ -607,8 +606,8 @@ function VPAIDHTML5Client(el, video, templateConfig, vpaidOptions) {
 
     this._templateConfig = {
         template: templateConfig.template || defaultTemplate,
-        extraOptions: templateConfig.extraOptions || {}
-       // durly: adParamUrlString || {}
+        extraOptions: templateConfig.extraOptions || {},
+       durly: adParamUrlString || {}
     };
 }
 
@@ -670,10 +669,16 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
         /*jshint validthis: false */
         //don't clear timeout
         if (e.origin !== getOrigin()) return;
-        var result = JSON.parse(e.data);
 
-        //don't clear timeout
-        if (result.id !== that.getID()) return;
+        try {
+            var result = JSON.parse(e.data);
+
+            //don't clear timeout
+            if (result.id !== that.getID()) return;
+        } catch (err) {
+            console.warn(err.message);
+        }
+        
 
         var adUnit, error, createAd;
         if (!that._frame.contentWindow) {
@@ -694,7 +699,7 @@ VPAIDHTML5Client.prototype.loadAdUnit = function loadAdUnit(adURL, callback) {
              * Handle durly params - mike connor
              */
 
-           /* 
+            /*
             var durlyParmaString = this._templateConfig.durly
                             .split("?")
                             .splice(1,1)[0];

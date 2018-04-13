@@ -1,7 +1,15 @@
+
+
 (function() {
+
+
+    console.log(window.frameElement.clientWidth  );
+    console.log(window.frameElement.clientHeight );
+
+
     var durlyParmaString = document.getElementById("adchoice").src
                                     .split("?")[1];
-    var adIFrame = document.getElementsByTagName("iframe")[0];
+    var adIFrame = window.frameElement;
     var int = setInterval(checkIFRAMEforVPAID, 3000);
 
     function checkIFRAMEforVPAID() {

@@ -13,6 +13,7 @@
       adParameters: ""
     },
     {
+      //;coid=242;nid=64564;position=bottom-right;ad_w=480;ad_h=360;vpaid=true
       url: "https://mconnor.github.io/vpaidExamples/playVideo/VpaidVideoAd.js",
       adParameters: JSON.stringify({
         videos: [
@@ -20,7 +21,6 @@
             //url: "//video.webmfiles.org/big-buck-bunny_trailer.webm",
             url: "./movs/mov_bbb.webm",
             //url: "https://mconnor.github.io/VPAIDHTML5Client/movs/mov_bbb.webm",
-            mimetype: "video/webm"
           },
           {
             url:"//download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4",
@@ -31,7 +31,11 @@
           playerHandles: false,
           trackID: 123,
           url: "http://www.dailymail.com"
-        }
+        },
+        durlyParams: {
+            //durlyString: ";coid=242;nid=64564;position=bottom-right;ad_w=480;ad_h=360;vpaid=true"
+            durlyString: "coid=242;nid=64564;position=bottom-right"
+          }
       })
     }
   ];
